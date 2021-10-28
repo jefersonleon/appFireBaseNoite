@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        edemail = (EditText)findViewById(R.id.edt_email);
+        edemail = (EditText) findViewById(R.id.edt_email);
         edsenha = (EditText) findViewById(R.id.edt_senha);
         btLogin = (Button) findViewById(R.id.btn_login);
         btregistrar = (Button) findViewById(R.id.btn_registrar);
@@ -47,43 +47,55 @@ public class Login extends AppCompatActivity {
         chmostrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     edsenha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }else{
+                } else {
                     edsenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
         });
-    btLogin.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String loginEmail = edemail.getText().toString();
-            String loginSenha = edsenha.getText().toString();
-            if(!TextUtils.isEmpty(loginEmail) || !TextUtils.isEmpty(loginSenha) ){
-                pbbar.setVisibility(View.VISIBLE);
-                mAuth.signInWithEmailAndPassword(loginEmail,loginSenha)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    abrirTelaPrincipal();
-                                }else{
-                                    String error = task.getException().getMessage();
-                                    Toast.makeText(Login.this,""+error,Toast.LENGTH_LONG).show();
-                                    pbbar.setVisibility(View.INVISIBLE);
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String loginEmail = edemail.getText().toString();
+                String loginSenha = edsenha.getText().toString();
+                if (!TextUtils.isEmpty(loginEmail) || !TextUtils.isEmpty(loginSenha)) {
+                    pbbar.setVisibility(View.VISIBLE);
+                    mAuth.signInWithEmailAndPassword(loginEmail, loginSenha)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        abrirTelaPrincipal();
+                                    } else {
+                                        String error = task.getException().getMessage();
+                                        Toast.makeText(Login.this, "" + error, Toast.LENGTH_LONG).show();
+                                        pbbar.setVisibility(View.INVISIBLE);
+                                    }
                                 }
-                            }
 
-                            private void abrirTelaPrincipal() {
-                                Intent intent = new Intent(Login.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
+                                private void abrirTelaPrincipal() {
+                                    Intent intent = new Intent(Login.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                }
+
+            }
+        });
+        btregistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirRegistro();
             }
 
-        }
-    });
+            private void abrirRegistro() {
+                Intent intent = new Intent(Login.this, Registro.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }

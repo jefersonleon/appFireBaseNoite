@@ -5,4 +5,7 @@
     <string name="nome_check">Mostrar senha</string>
     <string name="nome_login">Logar</string>
     <string name="nome_registrar">Registrar</string>
+    <string name="app_mobile">App Mobile</string>
+    <string name="titulosplash">App FireBase</string>
+    <string name="tit_cad">Cadastro</string>
 </resources>
